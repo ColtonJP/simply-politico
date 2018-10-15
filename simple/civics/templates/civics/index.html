@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="key_hidden.js"></script>
     <style>
         body{
             text-align: center;
@@ -41,15 +42,21 @@
 <body>
     <div class="container">
     <table class="flow-text">
+            <tr>
+            <td>
 
         <div id="area">Enter City and State to narrow down what you can effect
-        <input id="state" type="text" placeholder="Enter State">
-        <input id="City" type="text" placeholder="Enter City">
-        </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                        <i class="material-icons right"></i>
+        <form action="{%url 'civics:getsenator' %}" method="get">
+            {% csrf_token %}
+        <input name="state" type="text" placeholder="Enter State">
+        <!--<input id="City" type="text" placeholder="Enter City">-->
 
-
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+                </form>
+            </div>
+            </td>
+            </tr>
+    </table>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
