@@ -6,20 +6,19 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import requests
 
+
 def index(request):
-    candidates = Candidate.objects.all
+    candidates = CurrentCongress.objects.all
     return render(request, 'civics/index.html', {'candidates': candidates})
 
 
-def getsenator(request):
+def get_senator(request):
 
-    state = request.POST.get('state')
-    r = requests.get("https://api.propublica.org/congress/v1/members/senate/"+str(request.POST[state])+"/current.json", headers=key)
+    r = requests.get("https://api.propublica.org/congress/v1/members/senate/WA/current.json", headers=key)
     if r.status_code == 200:
-        print(state)
-        print(r.json())
-    return HttpResponse(r.text)
-    # return HttpResponseRedirect(reverse('civics:index'))
+        Candidate.save()
+        return HttpResponse(r.text)
+        # return HttpResponseRedirect(reverse('civics:index'))
 
 
 def register_user(request):
