@@ -1,10 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        body {
+            text-align: center;
+            background-image: url('https://images.pexels.com/photos/1464213/pexels-photo-1464213.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350');
+            color: black;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: red;
+        }
+
+        nav {
+            text-align: justify;
+            background-color: black;
+        }
+
+        div {
+            background-color: grey;
+            opacity: .8;
+        }
+
+         </style>
     <title>Your Senators</title>
 </head>
 <body>
-        <h4>{{senator.first_name}} {{senator.last_name}}</h4>
+<div class="container">
+        {% for candidate in candidate %}
+        <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}}</h4>
+        {{candidate.url}}
+        {{candidate.twitter}}
+        {{candidate.votesmart_id}}
+        {{candidate.contact_form}}
+        {{candidate.contact_form}}
+        {{candidate.contact_form}}
+        {% endfor %}
+</div>
 </body>
 </html>

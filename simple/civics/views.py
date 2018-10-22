@@ -15,8 +15,8 @@ def index(request):
 def get_senator(request):
     state = request.POST['state']
     house = request.POST['house']
-    senator = CurrentCongress.objects.filter(state=state, house=house)
-    return render(request, 'civics/detail.html', {'senator': senator})
+    candidate = CurrentCongress.objects.filter(state=state, house=house)
+    return render(request, 'civics/detail.html', {'candidate': candidate})
 
 
 def register_user(request):
