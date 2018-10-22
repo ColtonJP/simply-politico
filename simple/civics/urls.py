@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from django.urls import include, path
 
@@ -12,5 +11,4 @@ urlpatterns = [
     path('register_user/', views.register_user, name='register_user'),
     path('my_login/', views.my_login, name='my_login'),
     path('get_senator/', views.get_senator, name='get_senator'),
-
 ]

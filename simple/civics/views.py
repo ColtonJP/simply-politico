@@ -13,13 +13,8 @@ def index(request):
 
 
 def get_senator(request):
-
-    r = requests.get("https://api.propublica.org/congress/v1/members/senate/WA/current.json", headers=key)
-    if r.status_code == 200:
-        Candidate.save()
-        return HttpResponse(r.text)
-        # return HttpResponseRedirect(reverse('civics:index'))
-
+    state = request.Post['state'].value
+    return HttpResponseRedirect(reverse('civics:detail'))
 
 def register_user(request):
     username = request.POST['username']
