@@ -37,5 +37,5 @@ class CurrentCongress(models.Model):
     wikipedia_id = models.TextField(default='')
 
     def __str__(self):
-        return self.full_name
+        return self.first_name
 

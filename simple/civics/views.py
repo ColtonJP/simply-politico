@@ -13,8 +13,11 @@ def index(request):
 
 
 def get_senator(request):
-    state = request.Post['state'].value
-    return HttpResponseRedirect(reverse('civics:detail'))
+    state = request.POST['state']
+    house = request.POST['house']
+    senator = CurrentCongress.objects.filter(state=state, house=house)
+    return render(request, 'civics/detail.html', {'senator': senator})
+
 
 def register_user(request):
     username = request.POST['username']
