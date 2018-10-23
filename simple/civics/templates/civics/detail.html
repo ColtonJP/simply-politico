@@ -22,25 +22,34 @@
             background-color: black;
         }
 
-        div {
+        #can {
             background-color: grey;
-            opacity: .8;
+            opacity: .9;
         }
 
          </style>
-    <title>Your Senators</title>
+    <title>Your Current Representatives</title>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="http://localhost:8000/civics/" class="brand-logo">Simply-Politico</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="http://localhost:8000/civics/login/">Log In</a></li>
+                <li><a href="http://localhost:8000/civics/logout_view/">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
 </head>
 <body>
-<div class="container">
+<div id="can" class="container">
         {% for candidate in candidate %}
-        <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}}</h4>
-        {{candidate.url}}
-        {{candidate.twitter}}
-        {{candidate.votesmart_id}}
-        {{candidate.contact_form}}
-        {{candidate.contact_form}}
-        {{candidate.contact_form}}
+        <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
+       <br><h5> <a href="{{candidate.url}}">Web Page</a>
+        <br> <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a>
+        <br><a href=https://www.youtube.com/user/{{candidate.youtube}}>YouTube</a>
+        <br><a href=https://en.wikipedia.org/wiki/{{candidate.wikipedia_id}}>Wiki</a></h5>
         {% endfor %}
+     <iframe width="425" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                            src="https://www.govtrack.us/congress/members/embed/mapframe?&bounds=-154.08,55.952,-93.208,34.626"></iframe> </div>
 </div>
 </body>
 </html>

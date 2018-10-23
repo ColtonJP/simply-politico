@@ -17,8 +17,7 @@ class CurrentCongress(models.Model):
     party = models.TextField(default='')
     url = models.TextField(default='')
     address = models.TextField(default='')
-    contact_form = models.TextField(default='')
-    contact_form = models.TextField(default='')
+    Address = models.TextField(default='')
     rss_url = models.TextField(default='')
     twitter = models.TextField(default='')
     contact_form = models.TextField(default='')
@@ -37,5 +36,5 @@ class CurrentCongress(models.Model):
     wikipedia_id = models.TextField(default='')
 
     def __str__(self):
-        return self.first_name
+        return self.last_name
 
