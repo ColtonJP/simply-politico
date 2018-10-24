@@ -26,6 +26,22 @@
             background-color: grey;
             opacity: .9;
         }
+        #republican{
+            color: red;
+            background-color: grey;
+            opacity: .9;
+        }
+        #democrat{
+            color: blue;
+            background-color: grey;
+            opacity: .9;
+        }
+        img{
+            opacity:1;
+        }
+        p{
+            color: black
+        }
 
          </style>
     <title>Your Current Representatives</title>
@@ -42,14 +58,48 @@
 <body>
 <div id="can" class="container">
         {% for candidate in candidate %}
-        <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
-       <br><h5> <a href="{{candidate.url}}">Web Page</a>
-        <br> <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a>
-        <br><a href=https://www.youtube.com/user/{{candidate.youtube}}>YouTube</a>
-        <br><a href=https://en.wikipedia.org/wiki/{{candidate.wikipedia_id}}>Wiki</a></h5>
+
+        {% if candidate.party == 'Republican'%}
+    <form id="republican" class="container">
+        <img class="responsive-img, circle" src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
+    <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
+        <a href="{{candidate.url}}">Web Page</a> :
+        <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
+        <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
+        <a href="{{candidate.wiki_link}}">Wiki</a>
+        </form>
+        <form action="{%url 'civics:get_statement' %}" method="post">
+            {% csrf_token %}
+        Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?
+            <button class="btn waves-effect waves-light" type="submit" name="statement">Submit</button>
+             </form>
+            </h5>
+
+    --------------------------------------------------------------
+            {% else %}
+    <form id="democrat" class="container">
+        <img class="responsive-img, circle" src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
+    <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
+        <h5> <a href="{{candidate.url}}">Web Page</a> :
+        <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
+        <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
+        <a href="{{candidate.wiki_link}}">Wiki</a>
+    </form>
+        <form action="{%url 'civics:get_statement' %}" method="post">
+            {% csrf_token %}
+            <p>Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?</p>
+            <button class="btn waves-effect waves-light" type="submit" name="statement">Statement</button>
+        </form>
+        </h5>
+
+    --------------------------------------------------------------
+
+        {% endif %}
         {% endfor %}
-     <iframe width="425" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                            src="https://www.govtrack.us/congress/members/embed/mapframe?&bounds=-154.08,55.952,-93.208,34.626"></iframe> </div>
+    </div>
+
+     <br><iframe width="425" height="300" frameborder="1" scrolling="no" marginheight="0" marginwidth="0"
+    src="https://www.govtrack.us/congress/members/embed/mapframe?&bounds=-154.08,55.952,-93.208,34.626"></iframe> </div>
 </div>
 </body>
 </html>

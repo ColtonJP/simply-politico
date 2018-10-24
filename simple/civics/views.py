@@ -19,6 +19,18 @@ def get_senator(request):
     return render(request, 'civics/detail.html', {'candidate': candidate})
 
 
+def get_statement(request):
+
+    bioguide_id = request.POST.get('bioguide_id')
+    house = request.POST.get('house')
+    r = requests.get("https://api.propublica.org/congress/v1/members/C000127/statements/115.json",
+                 headers=key)
+    if r.status_code == 200:
+        print(r.json())
+        return HttpResponse(r.text)
+# return HttpResponseRedirect(reverse('civics:index'))
+
+
 def register_user(request):
     username = request.POST['username']
     email = request.POST['email']

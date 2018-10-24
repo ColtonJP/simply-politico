@@ -35,6 +35,9 @@ class CurrentCongress(models.Model):
     washington_post_id = models.TextField(default='')
     wikipedia_id = models.TextField(default='')
 
+    def wiki_link(self):
+        return "https://en.wikipedia.org/wiki/"+self.wikipedia_id.replace(' ','_')
+
     def __str__(self):
         return self.last_name
 

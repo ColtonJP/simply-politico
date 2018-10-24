@@ -29,7 +29,9 @@
         button{
             text-align: center;
         }
-
+        P{
+            color: white;
+        }
 
     </style>
     <nav>
@@ -49,8 +51,12 @@
     <table class="flow-text">
         <tr>
             <td>
+                <div class="row">
+                    <div class="col s3">
+                        <p>Need a reason to vote?</p>
+                <a class="twitter-timeline" data-width="220" data-height="200" data-theme="dark" href="https://twitter.com/realDonaldTrump?ref_src=twsrc%5Etfw">Tweets by realDonaldTrump</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
 
-                <div id="area">Enter the State and Part of Congress you Would Like to See.
+                <div class="col s9" id="area">Enter the State and Part of Congress you Would Like to See.
                     <form action="{%url 'civics:get_senator' %}" method="post">
                         {% csrf_token %}
                             <label for="state">State</label>
@@ -121,6 +127,7 @@
                             </td>
                         </tr>
                      </table>
+
 
 
 
