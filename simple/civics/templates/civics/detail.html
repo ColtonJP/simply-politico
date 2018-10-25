@@ -23,21 +23,13 @@
         }
 
         #can {
-            background-color: grey;
-            opacity: .9;
+            background-color: rgba(128,128,128,0.8);
         }
         #republican{
             color: red;
-            background-color: grey;
-            opacity: .9;
         }
         #democrat{
             color: blue;
-            background-color: grey;
-            opacity: .9;
-        }
-        img{
-            opacity:1;
         }
         p{
             color: black
@@ -60,37 +52,40 @@
         {% for candidate in candidate %}
 
         {% if candidate.party == 'Republican'%}
-    <form id="republican" class="container">
+    <div id="republican" class="container">
         <img class="responsive-img, circle" src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
     <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
-        <a href="{{candidate.url}}">Web Page</a> :
+        <p class="flow-text"><a href="{{candidate.url}}">Web Page</a> :
         <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
         <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
-        <a href="{{candidate.wiki_link}}">Wiki</a>
-        </form>
+            <a href="{{candidate.wiki_link}}">Wiki</a></p>
+        </div>
         <form action="{%url 'civics:get_statement' %}" method="post">
             {% csrf_token %}
         Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?
-            <button class="btn waves-effect waves-light" type="submit" name="statement">Submit</button>
-             </form>
-            </h5>
+            <button class="btn waves-effect waves-light" type="submit" name="statement" value="{{candidate.bioguide_id}}">Submit</button>
+         </form>
 
     --------------------------------------------------------------
             {% else %}
-    <form id="democrat" class="container">
+    <div id="democrat" class="container">
         <img class="responsive-img, circle" src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
     <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
-        <h5> <a href="{{candidate.url}}">Web Page</a> :
+        <p class="flow-text"><a href="{{candidate.url}}">Web Page</a> :
         <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
-        <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
-        <a href="{{candidate.wiki_link}}">Wiki</a>
-    </form>
+        {%if candidate.youtube == '' %}
+            {% else %}
+            <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
+            {% endif %}
+        <a href="{{candidate.wiki_link}}">Wiki</a></p>
+    </div>
         <form action="{%url 'civics:get_statement' %}" method="post">
             {% csrf_token %}
             <p>Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?</p>
-            <button class="btn waves-effect waves-light" type="submit" name="statement">Statement</button>
+
+            <button class="btn waves-effect waves-light" type="submit" name="statement" value="{{candidate.bioguide_id}}">Statement</button>
         </form>
-        </h5>
+
 
     --------------------------------------------------------------
 

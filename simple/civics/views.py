@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import requests
+from .key_hidden import key
 
 
 def index(request):
@@ -20,15 +21,13 @@ def get_senator(request):
 
 
 def get_statement(request):
-
-    bioguide_id = request.POST.get('bioguide_id')
-    house = request.POST.get('house')
-    r = requests.get("https://api.propublica.org/congress/v1/members/C000127/statements/115.json",
+    bioguide_id = request.POST.get('statement')
+    r = requests.get("https://api.propublica.org/congress/v1/members/"+bioguide_id+"/statements/115.json",
                  headers=key)
     if r.status_code == 200:
-        print(r.json())
-        return HttpResponse(r.text)
-# return HttpResponseRedirect(reverse('civics:index'))
+        data = r.json()
+        print(data)
+        return render(request, 'civics/statement.html', {'data': data})
 
 
 def register_user(request):
