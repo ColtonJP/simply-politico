@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        body {
+            text-align: center;
+            background-image: url('https://images.pexels.com/photos/1464213/pexels-photo-1464213.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350');
+            color: black;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: red;
+        }
+
+        nav {
+            text-align: justify;
+            background-color: black;
+        }
+        p{
+            color: black
+        }
+        #data{
+            background-color: rgba(128,128,128,0.8);
+        }
+
+         </style>
+    <title>Statements</title>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="http://localhost:8000/civics/" class="brand-logo">Simply-Politico</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="http://localhost:8000/civics/login/">Log In</a></li>
+                <li><a href="http://localhost:8000/civics/logout_view/">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
 </head>
 <body>
-{{data.title}}
+<div class="container" id="data">
+{% for datum in data %}
+<p class="flow-text">{{datum.date}}
+
+
+<br><a href="{{datum.url}}">{{datum.title}}</a></p>
+---------------------------------------------------
+{% endfor %}
+    </div>
 </body>
 </html>

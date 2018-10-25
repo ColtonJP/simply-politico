@@ -25,8 +25,7 @@ def get_statement(request):
     r = requests.get("https://api.propublica.org/congress/v1/members/"+bioguide_id+"/statements/115.json",
                  headers=key)
     if r.status_code == 200:
-        data = r.json()
-        print(data)
+        data = r.json()['results'][0:5]
         return render(request, 'civics/statement.html', {'data': data})
 
 
