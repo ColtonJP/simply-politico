@@ -62,7 +62,7 @@
         </div>
         <form action="{%url 'civics:get_statement' %}" method="post">
             {% csrf_token %}
-        Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?
+            Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?</p>
             <button class="btn waves-effect waves-light" type="submit" name="statement" value="{{candidate.bioguide_id}}">Yes</button>
          </form>
 

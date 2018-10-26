@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import requests
-from .key_hidden import key
+from .key_hidden import key, google_key
 
 
 def index(request):
@@ -20,13 +20,23 @@ def get_senator(request):
     return render(request, 'civics/detail.html', {'candidate': candidate})
 
 
+def get_candidate(request):
+    address = request.POST.get('address')
+    r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key="+google_key+"&address="+address+"")
+    if r.status_code == 200:
+        data = r.json()
+        print(data)
+        return render(request, 'civics/candidate.html', {'data': data})
+    else:
+        return HttpResponse(r.text)
+
 def get_statement(request):
-    bioguide_id = request.POST.get('statement')
+    bioguide_id = request.POST('statement')
     r = requests.get("https://api.propublica.org/congress/v1/members/"+bioguide_id+"/statements/115.json",
                  headers=key)
     if r.status_code == 200:
         data = r.json()['results'][0:5]
-        return render(request, 'civics/statement.html', {'data': data})
+        return render(request, 'civics/candidate.html', {'data': data})
 
 
 def register_user(request):

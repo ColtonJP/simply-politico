@@ -124,9 +124,33 @@
                             <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
                         </form>
                             </div>
+                            </div>
                             </td>
                         </tr>
                      </table>
+                        <div class="row"><div class="container"><div class="col s9 offset-s3" id="area">
+                        <div class="flow-text">
+                            Find out who is running against the incumbents by entering your address
+                        <form action="{%url 'civics:get_candidate' %}" method="post">
+                                    {% csrf_token %}
+                                    <input name="address" id="address" type="text" placeholder="Enter Address"/>
+                                    <button class="btn waves-effect waves-light" type="submit">Find Your Candidates!</button>
+                        </form>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
