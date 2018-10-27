@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Candidate
+from .models import CurrentCongress
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -14,6 +14,7 @@ def index(request):
 
 
 def get_senator(request):
+<<<<<<< Updated upstream
     state = request.POST['state']
     house = request.POST['house']
     candidate = CurrentCongress.objects.filter(state=state, house=house)
@@ -37,6 +38,14 @@ def get_statement(request):
     if r.status_code == 200:
         data = r.json()['results'][0:5]
         return render(request, 'civics/candidate.html', {'data': data})
+=======
+
+    r = requests.get("https://api.propublica.org/congress/v1/members/senate/WA/current.json", headers=key)
+    if r.status_code == 200:
+        Candidate.save()
+        return HttpResponse(r.text)
+        # return HttpResponseRedirect(reverse('civics:index'))
+>>>>>>> Stashed changes
 
 
 def register_user(request):
@@ -52,7 +61,7 @@ def login_page(request):
     return render(request, 'civics/login.html')
 
 
-def mylogin(request):
+def my_login(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
