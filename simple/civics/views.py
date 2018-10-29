@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import requests
-from .key_hidden import key, google_key
 
 
 def index(request):
@@ -14,7 +13,6 @@ def index(request):
 
 
 def get_senator(request):
-<<<<<<< Updated upstream
     state = request.POST['state']
     house = request.POST['house']
     candidate = CurrentCongress.objects.filter(state=state, house=house)
@@ -23,29 +21,23 @@ def get_senator(request):
 
 def get_candidate(request):
     address = request.POST.get('address')
-    r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key="+google_key+"&address="+address+"")
+    r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key=   ="+address+"")
     if r.status_code == 200:
-        data = r.json()
+        data = r.json()['contests']
         print(data)
         return render(request, 'civics/candidate.html', {'data': data})
     else:
         return HttpResponse(r.text)
 
+
 def get_statement(request):
-    bioguide_id = request.POST('statement')
+
+    bioguide_id = request.POST['statement']
     r = requests.get("https://api.propublica.org/congress/v1/members/"+bioguide_id+"/statements/115.json",
                  headers=key)
     if r.status_code == 200:
         data = r.json()['results'][0:5]
-        return render(request, 'civics/candidate.html', {'data': data})
-=======
-
-    r = requests.get("https://api.propublica.org/congress/v1/members/senate/WA/current.json", headers=key)
-    if r.status_code == 200:
-        Candidate.save()
-        return HttpResponse(r.text)
-        # return HttpResponseRedirect(reverse('civics:index'))
->>>>>>> Stashed changes
+        return render(request, 'civics/statement.html', {'data': data})
 
 
 def register_user(request):

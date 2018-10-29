@@ -44,11 +44,10 @@
 <div class="container" id="data">
 {% for datum in data %}
 <p class="flow-text">
+{{datum.candidates}}
+{{datum.office}}
 
-{{datum.date}}
-
-
-<br><a href="{{datum.url}}">{{datum.title}}</a></p>
+</p>
 ---------------------------------------------------
 {% endfor %}
     </div>
