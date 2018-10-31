@@ -20,12 +20,13 @@ def get_senator(request):
 
 
 def get_candidate(request):
+    candidate = CurrentCongress.objects.all
     address = request.POST.get('address')
-    r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key=   ="+address+"")
+    r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key=&address="+address+"")
     if r.status_code == 200:
         data = r.json()['contests']
         print(data)
-        return render(request, 'civics/candidate.html', {'data': data})
+        return render(request, 'civics/candidate.html', {'data': data}, {'candidate': candidate})
     else:
         return HttpResponse(r.text)
 

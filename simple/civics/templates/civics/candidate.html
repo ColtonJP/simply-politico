@@ -44,8 +44,10 @@
 <div class="container" id="data">
 {% for datum in data %}
 <p class="flow-text">
-{{datum.candidates}}
-{{datum.office}}
+    Running for {{datum.office}} in
+    <br><a href=" {{datum.candidates.0.candidateUrl}}">{{datum.candidates.0.name}}</a>
+    <br><a href=" {{datum.candidates.1.candidateUrl}}">{{datum.candidates.1.name}}</a>
+
 
 </p>
 ---------------------------------------------------

@@ -57,7 +57,6 @@
                 <a class="twitter-timeline" data-width="220" data-height="200" data-theme="dark" href="https://twitter.com/realDonaldTrump?ref_src=twsrc%5Etfw">Tweets by realDonaldTrump</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
 
                 <div class="col s9" id="area">Enter the State and Part of Congress you Would Like to See.
-                    <form action="{%url 'civics:get_senator' %}" method="post">
                         {% csrf_token %}
                             <label for="state">State</label>
                             <select class="browser-default" id="state" name="state">
@@ -121,8 +120,7 @@
                                 <option value="sen">Senate</option>
                                 <option value="rep">House of Rep</option>
                                 </select>
-                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
-                        </form>
+                            <input onclick="get()" type="button" class="btn waves-effect waves-light" value = "Submit"/>
                             </div>
                             </div>
                             </td>
@@ -140,6 +138,14 @@
                         </div>
                         </div>
                         </div>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    onclick(function get(){
+    let state = document.getElementById('state');
+    let house = document.getElementById('house');
+    window.location = "{%url 'civics:get_senator' %}" + state + house;
+})
+
+    </script>
 </body>
