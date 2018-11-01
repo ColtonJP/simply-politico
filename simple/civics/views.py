@@ -13,8 +13,6 @@ def index(request):
 
 
 def get_senator(request, state, house):
-    state = request.POST.get('state')
-    house = request.POST.get('house')
     candidate = CurrentCongress.objects.filter(state=state, house=house)
     return render(request, 'civics/detail.html', {'candidate': candidate})
 
@@ -22,11 +20,11 @@ def get_senator(request, state, house):
 def get_candidate(request):
     address = request.POST.get('address')
     state = request.POST.get('state1')
-    candidate = CurrentCongress.objects.filter(state=state)
+    candidates = CurrentCongress.objects.filter(state=state)
     r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key=&address="+address+""+state+"")
     if r.status_code == 200:
         data = r.json()['contests']
-        return render(request, 'civics/candidate.html', {'data': data}, {'candidate': candidate})
+        return render(request, 'civics/candidate.html', {'data': data, 'candidates': candidates})
     else:
         return HttpResponse(r.text)
 

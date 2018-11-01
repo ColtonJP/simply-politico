@@ -196,6 +196,6 @@
         state2.onclick =function(){
             let state = document.getElementById('state').value;
             let house = document.getElementById('house').value;
-            window.location.href = "{%url 'civics:get_senator' %}" + state +'/'+ house
+            window.location.assign ( "{%url 'civics:get_senator' %}" + state + "/" + house)
 }</script>
 </body>

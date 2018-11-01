@@ -41,10 +41,11 @@
     </nav>
 </head>
 <body>
-<div class="container" id="data">
-{% for candidate in candidate %}
+{% for candidate in candidates %}
     {{candidate.first_name}}
-    {% endfor %}
+{% endfor %}
+<div class="container" id="data">
+
 {% for datum in data %}
    {% if datum.candidates.0.name is not None %}
 <p class="flow-text">
