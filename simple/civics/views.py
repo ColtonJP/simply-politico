@@ -12,20 +12,20 @@ def index(request):
     return render(request, 'civics/index.html', {'candidates': candidates})
 
 
-def get_senator(request):
-    state = request.POST['state']
-    house = request.POST['house']
+def get_senator(request, state, house):
+    state = request.POST.get('state')
+    house = request.POST.get('house')
     candidate = CurrentCongress.objects.filter(state=state, house=house)
     return render(request, 'civics/detail.html', {'candidate': candidate})
 
 
 def get_candidate(request):
-    candidate = CurrentCongress.objects.all
     address = request.POST.get('address')
-    r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key=&address="+address+"")
+    state = request.POST.get('state1')
+    candidate = CurrentCongress.objects.filter(state=state)
+    r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key=&address="+address+""+state+"")
     if r.status_code == 200:
         data = r.json()['contests']
-        print(data)
         return render(request, 'civics/candidate.html', {'data': data}, {'candidate': candidate})
     else:
         return HttpResponse(r.text)

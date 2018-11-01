@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style>
         body {
             text-align: center;
@@ -23,19 +23,22 @@
         }
 
         #can {
-            background-color: rgba(128,128,128,0.8);
+            background-color: rgba(128, 128, 128, 0.8);
         }
-        #republican{
+
+        #republican {
             color: red;
         }
-        #democrat{
+
+        #democrat {
             color: blue;
         }
-        p{
+
+        p {
             color: black
         }
 
-         </style>
+    </style>
     <title>Your Current Representatives</title>
     <nav>
         <div class="nav-wrapper">
@@ -49,52 +52,60 @@
 </head>
 <body>
 <div id="can" class="container">
-        {% for candidate in candidate %}
+    {% for candidate in candidate %}
 
-        {% if candidate.party == 'Republican'%}
+    {% if candidate.party == 'Republican'%}
     <div id="republican" class="container">
-        <img class="responsive-img, circle" src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
-    <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
+        <img class="responsive-img, circle"
+             src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
+        <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
         <p class="flow-text"><a href="{{candidate.url}}">Web Page</a> :
-        <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
-        <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
+            <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
+            <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
             <a href="{{candidate.wiki_link}}">Wiki</a></p>
-        </div>
-        <form action="{%url 'civics:get_statement' %}" method="post">
-            {% csrf_token %}
-            Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?</p>
-            <button class="btn waves-effect waves-light" type="submit" name="statement" value="{{candidate.bioguide_id}}">Yes</button>
-         </form>
+    </div>
+    <form action="{%url 'civics:get_statement' %}" method="post">
+        {% csrf_token %}
+        Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?</p>
+        <button class="btn waves-effect waves-light" type="submit" name="statement" value="{{candidate.bioguide_id}}">
+            Yes
+        </button>
+    </form>
 
     --------------------------------------------------------------
-            {% else %}
+    {% else %}
     <div id="democrat" class="container">
-        <img class="responsive-img, circle" src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
-    <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
+        <img class="responsive-img, circle"
+             src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
+        <h4>{{candidate.first_name}} {{candidate.last_name}} {{candidate.party}} {{candidate.district}}</h4>
         <p class="flow-text"><a href="{{candidate.url}}">Web Page</a> :
-        <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
-        {%if candidate.youtube == '' %}
+            <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
+            {%if candidate.youtube == '' %}
             {% else %}
             <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
             {% endif %}
-        <a href="{{candidate.wiki_link}}">Wiki</a></p>
+            <a href="{{candidate.wiki_link}}">Wiki</a></p>
     </div>
-        <form action="{%url 'civics:get_statement' %}" method="post">
-            {% csrf_token %}
-            <p>Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?</p>
+    <form action="{%url 'civics:get_statement' %}" method="post">
+        {% csrf_token %}
+        <p>Want to see statements recently made by {{candidate.first_name}} {{candidate.last_name}}?</p>
 
-            <button class="btn waves-effect waves-light" type="submit" name="statement" value="{{candidate.bioguide_id}}">Yes</button>
-        </form>
+        <button class="btn waves-effect waves-light" type="submit" name="statement" value="{{candidate.bioguide_id}}">
+            Yes
+        </button>
+    </form>
 
 
     --------------------------------------------------------------
 
-        {% endif %}
-        {% endfor %}
-    </div>
+    {% endif %}
+    {% endfor %}
+</div>
 
-     <br><iframe width="425" height="300" frameborder="1" scrolling="no" marginheight="0" marginwidth="0"
-    src="https://www.govtrack.us/congress/members/embed/mapframe?&bounds=-154.08,55.952,-93.208,34.626"></iframe> </div>
+<br>
+<iframe width="425" height="300" frameborder="1" scrolling="no" marginheight="0" marginwidth="0"
+        src="https://www.govtrack.us/congress/members/embed/mapframe?&bounds=-154.08,55.952,-93.208,34.626"></iframe>
+</div>
 </div>
 </body>
 </html>

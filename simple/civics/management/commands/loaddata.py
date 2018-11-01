@@ -5,7 +5,7 @@ import csv
 
 def parse_csv():
     data = []
-    with open(r'C:\Users\Colton\Downloads\legislators-current.csv', newline='') as csvfile:
+    with open(r'C:\Users\colton\PycharmProjects\simply-politico\simple\civics\management\commands\legislators-current.csv', newline='') as csvfile:
         lines = csv.reader(csvfile, delimiter=',', quotechar='"')
         for i, row in enumerate(lines):
             if i == 0:
@@ -68,7 +68,7 @@ class Command(BaseCommand):
             if votesmart_id == '':
                 votesmart_id = None
 
-            if CurrentCongress.objects.filter(first_name=first_name, last_name=last_name).count() == 0: # check if the record exists
+            if not CurrentCongress.objects.filter(first_name=first_name, last_name=last_name).exists(): # check if the record exists
                 cc = CurrentCongress(first_name=first_name,
                                         last_name=last_name,
                                         middle_name=middle_name,
@@ -101,4 +101,6 @@ class Command(BaseCommand):
                                         ballotpedia_id=ballotpedia_id,
                                         washington_post_id=washington_post_id,
                                         wikipedia_id=wikipedia_id)  # create the record if it doesn't exist
+
                 cc.save()
+            print('saving')
