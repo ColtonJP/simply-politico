@@ -20,11 +20,11 @@ def get_senator(request, state, house):
 def get_candidate(request):
     address = request.POST.get('address')
     state = request.POST.get('state1')
-    candidates = CurrentCongress.objects.filter(state=state)
+    incumbents = CurrentCongress.objects.filter(state=state)
     r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key=&address="+address+""+state+"")
     if r.status_code == 200:
         data = r.json()['contests']
-        return render(request, 'civics/candidate.html', {'data': data, 'candidates': candidates})
+        return render(request, 'civics/candidate.html', {'data': data, 'incumbents': incumbents})
     else:
         return HttpResponse(r.text)
 
@@ -36,7 +36,11 @@ def get_statement(request):
                  headers=key)
     if r.status_code == 200:
         data = r.json()['results'][0:5]
-        return render(request, 'civics/statement.html', {'data': data})
+        r = requests.get("https://api.propublica.org/congress/v1/members/"+bioguide_id+"/bills/introduced.json",
+                     headers=key)
+        bills = r.json()['results']
+        print(bills)
+        return render(request, 'civics/statement.html', {'bills': bills, 'data': data})
 
 
 def register_user(request):

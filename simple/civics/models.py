@@ -7,7 +7,6 @@ class CurrentCongress(models.Model):
     middle_name = models.TextField(default='')
     suffix = models.TextField(default='')
     nickname = models.TextField(default='')
-    full_name = models.TextField(default='')
     birthday = models.TextField(default='')
     gender = models.TextField(default='')
     house = models.TextField(default='')
@@ -38,6 +37,9 @@ class CurrentCongress(models.Model):
 
     def wiki_link(self):
         return "https://en.wikipedia.org/wiki/"+self.wikipedia_id.replace(' ','_')
+
+    def full_name(self):
+        return '{0} {1}'.format(self.first_name, self.last_name)
 
     def __str__(self):
         return self.last_name

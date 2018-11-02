@@ -49,6 +49,17 @@
 <br><a href="{{datum.url}}">{{datum.title}}</a></p>
 ---------------------------------------------------
 {% endfor %}
+    {% for bill in bills %}
+<p class="flow-text">{{bill.latest_major_action_date}}
+<br>{{bill.title}}</p>
+    {{bill.bills.0.title}}
+
+---------------------------------------------------
+{% endfor %}
+
+
+
+
     </div>
 </body>
 </html>
