@@ -21,17 +21,20 @@ def get_candidate(request):
     address = request.POST.get('address')
     state = request.POST.get('state1')
     incumbents = CurrentCongress.objects.filter(state=state)
-    r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key=&address="+address+""+state+"")
+    r = requests.get("https://www.googleapis.com/civicinfo/v2/voterinfo?key=              &address="+address+""+state+"")
     if r.status_code == 200:
         data = r.json()['contests']
         return render(request, 'civics/candidate.html', {'data': data, 'incumbents': incumbents})
     else:
-        return HttpResponse(r.text)
+        r = requests.get("https://www.googleapis.com/civicinfo/v2/representatives?key=              &address=" + address + "" + state + "")
+        data = r.json()['officials']
+        return render(request, 'civics/candidate.html', {'data': data, 'incumbents': incumbents})
 
 
 def get_statement(request):
-
+    key = {"X-API-Key": ""}
     bioguide_id = request.POST['statement']
+    candidate = CurrentCongress.objects.filter(bioguide_id=bioguide_id)
     r = requests.get("https://api.propublica.org/congress/v1/members/"+bioguide_id+"/statements/115.json",
                  headers=key)
     if r.status_code == 200:
@@ -39,8 +42,9 @@ def get_statement(request):
         r = requests.get("https://api.propublica.org/congress/v1/members/"+bioguide_id+"/bills/introduced.json",
                      headers=key)
         bills = r.json()['results']
-        print(bills)
-        return render(request, 'civics/statement.html', {'bills': bills, 'data': data})
+        r = requests.get("https://api.open.fec.gov/v1/names/candidates/?api_key= &q=Patty%20Murray")
+        contributions = r.json()
+        return render(request, 'civics/statement.html', {'bills': bills, 'data': data, 'candidate': candidate, 'contributions':contributions})
 
 
 def register_user(request):

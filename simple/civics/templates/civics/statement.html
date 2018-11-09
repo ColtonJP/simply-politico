@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style>
         body {
             text-align: center;
-            background-image: url('https://images.pexels.com/photos/1464213/pexels-photo-1464213.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350');
-            color: black;
+            background-color: darkgreen;
+            color: white;
         }
 
         a {
@@ -21,15 +21,16 @@
             text-align: justify;
             background-color: black;
         }
-        p{
+
+        p {
             color: black
         }
-        #data{
-            background-color: rgba(128,128,128,0.8);
+        #data {
+             background-color: darkblue;
+            opacity: .9;
         }
-
-         </style>
-    <title>Statements</title>
+    </style>
+    <title>Info about what your Representatives have done.</title>
     <nav>
         <div class="nav-wrapper">
             <a href="http://localhost:8000/civics/" class="brand-logo">Simply-Politico</a>
@@ -41,25 +42,42 @@
     </nav>
 </head>
 <body>
-<div class="container" id="data">
-{% for datum in data %}
-<p class="flow-text">{{datum.date}}
+<div class="row">
+    <div class="container">
+        <div class="col s6" id="data">
+            {% for candidate in candidate %}
+            <br><br>
+            <h4>Press releases that {{candidate.full_name}} Have Made</h4>
+            {% for datum in data %}
+            <p class="flow-text">{{datum.date}}
 
 
-<br><a href="{{datum.url}}">{{datum.title}}</a></p>
----------------------------------------------------
-{% endfor %}
-    {% for bill in bills %}
-<p class="flow-text">{{bill.latest_major_action_date}}
-<br>{{bill.title}}</p>
-    {{bill.bills.0.title}}
+                <br><a href="{{datum.url}}">{{datum.title}}</a></p>
+            ---------------------------------------------------
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+        <div class="container">
+            <div class="col s6" id="data">
+                <br><br>
+                {% for candidate in candidate %}
+                <h4>Bills that {{candidate.full_name}} Have Introduced</h4>
+                {% endfor %}
+                {% for bill in bills %}
 
----------------------------------------------------
-{% endfor %}
+                {% for title in bill.bills|slice:":5"  %}
+                <p class="flow-text">
 
+                    {{title.latest_major_action_date}}
+                    <br>
+                    <a href=" {{title.congressdotgov_url}}">{{title.title}}</a></p>
 
-
-
+                ---------------------------------------------------
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </body>
 </html>

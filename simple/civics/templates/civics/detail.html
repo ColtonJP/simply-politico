@@ -5,8 +5,8 @@
     <style>
         body {
             text-align: center;
-            background-image: url('https://images.pexels.com/photos/1464213/pexels-photo-1464213.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350');
-            color: black;
+            background-color: darkgreen;
+            color: white;
         }
 
         a {
@@ -23,15 +23,18 @@
         }
 
         #can {
-            background-color: rgba(128, 128, 128, 0.8);
+
+            opacity: .9;
         }
 
         #republican {
-            color: red;
+            background-color: darkred;
+            color: white;
         }
 
         #democrat {
-            color: blue;
+            background-color: darkblue;
+            color: white;
         }
 
         p {
@@ -51,6 +54,7 @@
     </nav>
 </head>
 <body>
+<div class="row">
 <div id="can" class="container">
     {% for candidate in candidate %}
 
@@ -63,7 +67,7 @@
             <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
             <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
             <a href="{{candidate.wiki_link}}">Wiki</a></p>
-    </div>
+
     <form action="{%url 'civics:get_statement' %}" method="post">
         {% csrf_token %}
         Want to see statements recently made by {{candidate.full_name}}?</p>
@@ -71,8 +75,9 @@
             Yes
         </button>
     </form>
+        </div>
+    <br>
 
-    --------------------------------------------------------------
     {% else %}
     <div id="democrat" class="container">
         <img class="responsive-img, circle"
@@ -85,7 +90,7 @@
             <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
             {% endif %}
             <a href="{{candidate.wiki_link}}">Wiki</a></p>
-    </div>
+
     <form action="{%url 'civics:get_statement' %}" method="post">
         {% csrf_token %}
         <p>Want to see statements recently made by {{candidate.full_name}}?</p>
@@ -94,13 +99,15 @@
             Yes
         </button>
     </form>
+        </div>
 
+<br>
 
-    --------------------------------------------------------------
 
     {% endif %}
     {% endfor %}
 </div>
+    </div>
 
 <br>
 <iframe width="425" height="300" frameborder="1" scrolling="no" marginheight="0" marginwidth="0"

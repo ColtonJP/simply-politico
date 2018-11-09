@@ -43,8 +43,9 @@
 <body>
 
 {% for datum in data %}
-    {% for candidate in candidates %}
-        {{candidate.name}}
+    {% for incumbent in incumbents  %}
+        {{incumbent.name}}
+{% endfor %}
 {% endfor %}
 
 
@@ -58,8 +59,16 @@
 </p>
 ---------------------------------------------------
 {% endif %}
+    </div>
+<div class="container" id="data">
+    {% for datum in data %}
+    <p class="flow-text">
+{{datum.name}} {{datum.party}}
+</p>
+---------------------------------------------------
     {% endfor %}
     </div>
+
 
 </body>
 </html>
