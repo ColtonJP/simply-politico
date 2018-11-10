@@ -5,7 +5,7 @@
     <style>
         body {
             text-align: center;
-            background-color: darkgreen;
+            background-image: url("https://images.pexels.com/photos/990826/pexels-photo-990826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
             color: white;
         }
 
@@ -19,27 +19,51 @@
 
         nav {
             text-align: justify;
-            background-color: black;
-        }
-
-        #can {
-
-            opacity: .9;
+            background-image: url("https://images.pexels.com/photos/990826/pexels-photo-990826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
         }
 
         #republican {
-            background-color: darkred;
+            margin: 5px;
+            flex-grow: 1;
+            flex-shrink: 1;
+            flex-basis: 0;
+            background-color: rgba(204,0,0,.6);
             color: white;
+            align-content: space-around;
+            justify-content: space-evenly;
+
         }
 
         #democrat {
-            background-color: darkblue;
+            margin: 5px;
+            flex-grow: 1;
+            flex-shrink: 1;
+            flex-basis: 0;
+            background-color: rgba(0,0,204,.6);
             color: white;
+            align-content: space-around;
+            justify-content: space-evenly;
         }
 
         p {
-            color: black
+            color: white
         }
+
+        .flex-container {
+            padding: 5px;
+            list-style: none;
+
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+
+            -webkit-flex-flow: row wrap;
+            justify-content: space-evenly;
+            align-content: center;
+        }
+
 
     </style>
     <title>Your Current Representatives</title>
@@ -47,72 +71,72 @@
         <div class="nav-wrapper">
             <a href="http://localhost:8000/civics/" class="brand-logo">Simply-Politico</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="http://localhost:8000/civics/login/">Log In</a></li>
-                <li><a href="http://localhost:8000/civics/logout_view/">Log out</a></li>
+                <li><a href="http://localhost:8000/civics/about">About</a></li>
             </ul>
         </div>
     </nav>
 </head>
 <body>
-<div class="row">
-<div id="can" class="container">
-    {% for candidate in candidate %}
-
-    {% if candidate.party == 'Republican'%}
-    <div id="republican" class="container">
-        <img class="responsive-img, circle"
-             src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
-        <h4> {{candidate.full_name}} {{candidate.party}} {{candidate.district}}</h4>
-        <p class="flow-text"><a href="{{candidate.url}}">Web Page</a> :
-            <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
-            <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
-            <a href="{{candidate.wiki_link}}">Wiki</a></p>
-
-    <form action="{%url 'civics:get_statement' %}" method="post">
-        {% csrf_token %}
-        Want to see statements recently made by {{candidate.full_name}}?</p>
-        <button class="btn waves-effect waves-light" type="submit" name="statement" value="{{candidate.bioguide_id}}">
-            Yes
-        </button>
-    </form>
-        </div>
-    <br>
-
-    {% else %}
-    <div id="democrat" class="container">
-        <img class="responsive-img, circle"
-             src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
-        <h4> {{candidate.full_name}} {{candidate.party}} {{candidate.district}}</h4>
-        <p class="flow-text"><a href="{{candidate.url}}">Web Page</a> :
-            <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
-            {%if candidate.youtube == '' %}
-            {% else %}
-            <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
-            {% endif %}
-            <a href="{{candidate.wiki_link}}">Wiki</a></p>
-
-    <form action="{%url 'civics:get_statement' %}" method="post">
-        {% csrf_token %}
-        <p>Want to see statements recently made by {{candidate.full_name}}?</p>
-
-        <button class="btn waves-effect waves-light" type="submit" name="statement" value="{{candidate.bioguide_id}}">
-            Yes
-        </button>
-    </form>
-        </div>
-
-<br>
-
-
-    {% endif %}
-    {% endfor %}
-</div>
-    </div>
-
-<br>
+{% for candidate in candidates %}
+{% if candidate.house == 'rep' %}
+<p>The number next to your representatives correspond to the district they represent in your state</p>
 <iframe width="425" height="300" frameborder="1" scrolling="no" marginheight="0" marginwidth="0"
         src="https://www.govtrack.us/congress/members/embed/mapframe?&bounds=-154.08,55.952,-93.208,34.626"></iframe>
+{% endif %}
+{% endfor %}
+<div class="row">
+    <div class="container">
+    <ul id="can" class="flex-container">
+        {% for candidate in candidate %}
+
+        {% if candidate.party == 'Republican'%}
+        <li class="flex-item" id="republican">
+            <img class="responsive-img, circle" src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
+            <h4> {{candidate.full_name}} {{candidate.party}} {{candidate.district}}</h4>
+            <p class="flow-text"><a href="{{candidate.url}}">Web Page</a> :
+                <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
+                <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
+                <a href="{{candidate.wiki_link}}">Wiki</a></p>
+
+            <form action="{%url 'civics:get_statement' %}" method="post">
+                {% csrf_token %}
+                <p>Click for more info on {{candidate.full_name}}</p>
+                <button class="btn waves-effect waves-light" type="submit" name="statement"
+                        value="{{candidate.bioguide_id}}">
+                    Yes
+                </button>
+            </form>
+        </li>
+        <br>
+
+        {% else %}
+        <li class="flex-item" id="democrat">
+            <img class="responsive-img, circle"
+                 src="https://theunitedstates.io/images/congress/225x275/{{candidate.bioguide_id}}.jpg">
+            <h4> {{candidate.full_name}} {{candidate.party}} {{candidate.district}}</h4>
+            <p class="flow-text"><a href="{{candidate.url}}">Web Page</a> :
+                <a href="https://twitter.com/{{candidate.twitter}}">Twitter</a> :
+                {%if candidate.youtube == '' %}
+                {% else %}
+                <a href="https://www.youtube.com/user/{{candidate.youtube}}">YouTube</a> :
+                {% endif %}
+                <a href="{{candidate.wiki_link}}">Wiki</a></p>
+
+            <form action="{%url 'civics:get_statement' %}" method="post">
+                {% csrf_token %}
+                <p>Click for more info on {{candidate.full_name}}</p>
+
+                <button class="btn waves-effect waves-light" type="submit" name="statement"
+                        value="{{candidate.bioguide_id}}">
+                    Yes
+                </button>
+            </form>
+        </li>
+
+        {% endif %}
+        {% endfor %}
+    </ul>
 </div>
-</div>
+    </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
     <style>
         body {
             text-align: center;
-            background-image: url('https://images.pexels.com/photos/1464213/pexels-photo-1464213.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350');
+            background-image: url("https://images.pexels.com/photos/990826/pexels-photo-990826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
             color: black;
         }
 
@@ -19,13 +19,16 @@
 
         nav {
             text-align: justify;
-            background-color: black;
+            background-image: url("https://images.pexels.com/photos/990826/pexels-photo-990826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
         }
         p{
             color: black
         }
         #data{
             background-color: rgba(128,128,128,0.8);
+        }
+        #cc{
+            height: 200px;
         }
 
          </style>
@@ -34,8 +37,7 @@
         <div class="nav-wrapper">
             <a href="http://localhost:8000/civics/" class="brand-logo">Simply-Politico</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="http://localhost:8000/civics/login/">Log In</a></li>
-                <li><a href="http://localhost:8000/civics/logout_view/">Log out</a></li>
+                <li><a href="http://localhost:8000/civics/about">About</a></li>
             </ul>
         </div>
     </nav>
@@ -61,9 +63,11 @@
 {% endif %}
     </div>
 <div class="container" id="data">
-    {% for datum in data %}
+    {% for current in currents %}
     <p class="flow-text">
-{{datum.name}} {{datum.party}}
+    <div>{{current.party}}</div>
+        <img id="cc" class="responsive-img, circle" src="{{current.photoUrl}}">
+    <div>{{current.name}}</div>
 </p>
 ---------------------------------------------------
     {% endfor %}
