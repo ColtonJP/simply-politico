@@ -27,8 +27,38 @@
         }
         #data {
              background-image: url("https://images.pexels.com/photos/949587/pexels-photo-949587.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-            opacity: .9;
+            margin: 5px;
+            flex-grow: 1;
+            flex-shrink: 1;
+            flex-basis: 0;
+            align-content: space-around;
+            justify-content: space-evenly;
+            color: white;
         }
+        .flex-container {
+            padding: 5px;
+            list-style: none;
+
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+
+            -webkit-flex-flow: row wrap;
+            justify-content: space-evenly;
+            align-content: center;
+        }
+        p{
+            color: white;
+        }
+        a{
+            color:white;
+        }
+
+
+
+
     </style>
     <title>Info about what your Representatives have done.</title>
     <nav>
@@ -43,10 +73,11 @@
 <body>
 <div class="row">
     <div class="container">
-        <div class="col s6" id="data">
+    <ul class="flex-container">
+        <li class="flex-item" id="data">
             {% for candidate in candidate %}
             <br><br>
-            <h4>Press releases that {{candidate.full_name}} Have Made</h4>
+            <h4>Press releases from the Office of {{candidate.full_name}}</h4>
             {% for datum in data %}
             <p class="flow-text">{{datum.date}}
 
@@ -55,13 +86,13 @@
             ---------------------------------------------------
             {% endfor %}
             {% endfor %}
-        </div>
-    </div>
-        <div class="container">
-            <div class="col s6" id="data">
+        </li>
+    </ul>
+        <ul class="flex-container">
+            <li class="flex-item" id="data">
                 <br><br>
                 {% for candidate in candidate %}
-                <h4>Bills that {{candidate.full_name}} Have Introduced</h4>
+                <h4>Bills that {{candidate.full_name}} has introduced</h4>
                 {% endfor %}
                 {% for bill in bills %}
 
@@ -75,7 +106,8 @@
                 ---------------------------------------------------
                 {% endfor %}
                 {% endfor %}
-            </div>
+            </li>
+            </ul>
         </div>
     </div>
 </body>

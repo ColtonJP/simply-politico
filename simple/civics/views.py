@@ -28,8 +28,11 @@ def get_candidate(request):
     else:
         r = requests.get("https://www.googleapis.com/civicinfo/v2/representatives?key=&address="+address+""+state+"")
         currents = r.json()['officials']
-        print(currents)
-        return render(request, 'civics/candidate.html', {'currents': currents, 'incumbents': incumbents})
+        offices = r.json()['offices']
+        for i in range(len(offices)):
+            currents[i]['office'] = offices[i]
+            print(currents)
+        return render(request, 'civics/candidate.html', {'currents': currents, 'incumbents': incumbents, 'offices': offices})
 
 
 def get_statement(request):
